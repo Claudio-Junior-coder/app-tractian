@@ -1,2 +1,2 @@
 #Projeto Tactian
-#Desenvolvi esse projeto durante um processo seletivo da empresa Tractian.
+Estou desenvolvendo esse projeto durante o processo seletivo da empresa Tractian.
