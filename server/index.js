@@ -1,5 +1,6 @@
 const express = require('express') 
 const mongoose = require('mongoose')
+const cors = require('cors')
 const app = express()
 
 const companyModel = require('./models/Company')
@@ -7,45 +8,34 @@ const Assets = require('./models/Assets')
 const Unities = require('./models/Unities')
 const Responsible = require('./models/Responsible')
 
+
 app.use(express.json())
+app.use(cors())
 
 mongoose.connect('mongodb+srv://user:passbase@crud.lo4nw.mongodb.net/company?retryWrites=true&w=majority', {
     useNewUrlParser: true,
+     useUnifiedTopology: true 
 })
 
 //creates
 app
 .post('/create', async (req, res) => {
-    const { name, email } = req.body
-    const company = await companyModel.create({ name, email })
-    return res.status(201).json(company)
+    const { name } = req.body.name
+    const company = await companyModel.create({ name })
+    return res.status(201).json({company})
 })
 
-   
-
-.post('/login', async (req, res) => {
-    const { email } = req.body
-
-    let company = await companyModel.findOne({ email })
-
-    if (!company) return res.json({ message: 'company not found' })
-
-    return res.status(200).json(company)   
-})  
-
-.post('/assets/:unity', async (req, res) => {
-    const { image, name, description, model, state, healthscore } = req.body
-    const { token } = req.headers
-    const { unity: unityID } = req.params
-
+.post('/assets', async (req, res) => {
+    const { image, name, description, model, state, healthscore, token, unity} = req.body
+    console.log(req.body)
     try {
-        const asset = await Assets.create({image, name, description, model, state, healthscore, company: token, unity: unityID})
-        const unity = await Unities.findOne({ _id: unityID})
+        const asset = await Assets.create({image, name, description, model, state, healthscore: Number(healthscore), company: token, unity})
+        const unityID = await Unities.findOne({ _id: unity})
     
-        unity.data.assetsData.push(asset._id)
-        unity.save()
+        unityID.data.assetsData.push(asset._id)
+        unityID.save()
 
-        return res.status(201).json({asset, unity})
+        return res.status(201).json({asset, unityID})
 
     } catch (error) {
         return res.status(500).json(error)    
@@ -53,19 +43,19 @@ app
 })
 
 .post('/unities', async (req, res) => {
-    const { name, data} = req.body
-    const { token } = req.headers
+    const { name, token, data } = req.body
     
     try {
-        const asset = await Unities.create({name, company: token, data})
+        const asset = await Unities.create({ name, company: token, data: { countAssets: Number(data) }})
         asset.save()
         return res.status(201).json(asset)
+        //return console.log('sucesso')
     } catch (error) {
-        return res.status(500).json(error)        
+        return console.log(error)    
     }
 })
 
-.post('/responsible/:asset', async (req, res) => {
+.post('/responsible', async (req, res) => {
     const { name, responsibleAssets = [] } = req.body
 
     try {
@@ -196,27 +186,58 @@ app
 })
 
 //Index / read
-.get('/unities/:id', async (req, res) => {
+.get('/unities-ids/:id', async (req, res) => {
     const { id } = req.params
 
     try {
-    const unities = await Unities.findById(id)
+    const unities = await Unities.find({ company: id })
 
-    await unities
-      .populate({
-        path: 'data.assetsData',
-        populate: {
-          path: 'responsibles',
-          select: 'name'
-        }
-      })
-      .execPopulate()
+    for (unity of unities) {
+        await unity
+          .populate({
+            path: 'data.assetsData',
+            populate: {
+              path: 'responsibles',
+              select: 'name'
+            }
+          })
+          .execPopulate()
+    }
 
+      console.log(unities)
         return res.status(200).json(unities)
     } catch (error) {
         return res.status(500).json(error)         
     }
 })
+
+.get('/asset', async (req, res) => {
+    try {
+         const assets = await Assets.find()
+         return res.send({assets})   
+    } catch (error) {
+        return res.status(500).json(error)         
+    }
+})
+
+.get('/unity', async (req, res) => {
+    try {
+         const unities = await Unities.find()
+         return res.send({unities})   
+    } catch (error) {
+        return res.status(500).json(error)         
+    }
+})
+
+.get('/companies', async (req, res) => {
+    try {
+         const companies = await companyModel.find()
+         return res.send({companies})   
+    } catch (error) {
+        return res.status(500).json(error)         
+    }
+})
+
 
 app.listen(3001, () => {
     console.log('Server running on ports 3001...')

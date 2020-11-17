@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 
 const CompanySchema = new mongoose.Schema({
   
-  name: {type: String, required: true},
-  email: String,
+  name: {type: String, required: true}
 
 });
 
