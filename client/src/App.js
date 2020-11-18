@@ -115,14 +115,15 @@ export default function App() {
             color: '#cc121b'
           }
         }
-      })
+        return null
+      }).filter(Boolean)
       
       setOptions({
         ...options,
         series
       })
     })
-
+  // eslint-disable-next-line
   }, [companyId]);
 
   return isLoading ? <h1 style={{ color: 'gray'}}>Carregando...</h1> : (
