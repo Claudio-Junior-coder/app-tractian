@@ -192,6 +192,18 @@ app
     }
   })
 
+.get('/', (req, res) => {
+    try {
+        return res.status(200).json({
+            status: 'alive'
+        })
+    } catch(err) {
+        return res.status(102).json({
+            message: String(err)
+        })
+    }
+})
+
 //Index / read
 .get('/unities-ids/:id', async (req, res) => {
     const { id } = req.params
