@@ -21,15 +21,21 @@ const tailLayout = {
   },
 };
 
-const CreateCompanyForm = () => {
+const UpdateCompanyForm = () => {
   const onFinish = (values) => {
-    console.log("Success:", values);
-    api.post("create", { name: values }).then(({ data }) => {
-      window.localStorage.setItem("company_id", data.company._id);
 
-      setTimeout(() => {
+    const id = window.localStorage.getItem('company_id');
+
+    api.put("update-company", { name: values, _id: id }).then(({ data }) => {
+
+      window.localStorage.setItem("company_id", data._id);
+      console.log("Success:", data);
+
+
+      setTimeout(() => {      
         window.location.href = "/";
       }, 1000);
+
     });
   };
 
@@ -41,24 +47,24 @@ const CreateCompanyForm = () => {
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
           <div className="content-header">
-            <h1>Project Tractian - Nova Empresa</h1>
+            <h1>Project Tractian - Editar Empresa</h1>
           </div>
       </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item>Início</Breadcrumb.Item>
-          <Breadcrumb.Item>Criar Empresa</Breadcrumb.Item>
+          <Breadcrumb.Item>Editar Empresa</Breadcrumb.Item>
         </Breadcrumb>
         <div
           className="site-layout-background"
           style={{ padding: 24, minHeight: 360 }}
         >
           <div className="container">
-            <h1>Insira um nome para a empresa:</h1>
-
+            <h1>Atualize o campo abaixo:</h1>
+            <p>Obs: Você está editando a empresa selecionada no menu ao lado esquerdo.</p>
             <Form
               {...layout}
-              name="form_create_companies"
+              name="form_update_companies"
               initialValues={{
                 remember: true,
               }}
@@ -80,7 +86,7 @@ const CreateCompanyForm = () => {
 
               <Form.Item {...tailLayout}>
                 <Button type="primary" htmlType="submit">
-                  Cadastrar
+                  Atualizar
                 </Button>
               </Form.Item>
             </Form>
@@ -94,4 +100,4 @@ const CreateCompanyForm = () => {
   );
 };
 
-export default CreateCompanyForm;
+export default UpdateCompanyForm;

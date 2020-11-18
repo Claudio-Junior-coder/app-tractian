@@ -30,7 +30,11 @@ export default function App() {
 
   return (
     <Layout className="site-layout">
-      <Header className="site-layout-background" style={{ padding: 0 }} />
+      <Header className="site-layout-background" style={{ padding: 0 }}>
+          <div className="content-header">
+            <h1>Project - Tractian</h1>
+          </div>
+        </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item>Início</Breadcrumb.Item>
@@ -52,9 +56,8 @@ export default function App() {
                         <h2 style={{textAlign: "center"}}> Ativos </h2>
                           <hr></hr>
                           {val.data.assetsData.map((vals) => {
-                            console.log(val)
                             return (
-                              <div key={vals._id} style={{ border: "1px solid #2194FF", borderRadius: "5px" , padding: "20px", margin: "10px"}}>
+                              <div key={vals._id} style={{ border: "1px solid #001529", borderRadius: "5px" , padding: "20px", margin: "10px"}}>
                                 <p><span style={{ fontWeight: "bold"}}>Imagem url:</span> {vals.image}</p>
                                 <p><span style={{ fontWeight: "bold"}}>Nome:</span> {vals.name}</p>
                                 <p><span style={{ fontWeight: "bold"}}>Descrição:</span> {vals.description}</p>

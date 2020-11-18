@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import api from "../../service/api";
-import { Form, Input, Button, Layout, Breadcrumb } from "antd";
+import { Form, Button, Layout, Breadcrumb, Select } from "antd";
 import "../../styles/forms.css";
 
 const { Header, Content, Footer } = Layout;
-
 
 const layout = {
   labelCol: {
@@ -21,16 +20,24 @@ const tailLayout = {
   },
 };
 
-const CreateCompanyForm = () => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
-    api.post("create", { name: values }).then(({ data }) => {
-      window.localStorage.setItem("company_id", data.company._id);
+const DeleteResponsibleForm = () => {
 
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 1000);
+  const [listNamesResponsibles, setListNamesResponsibles] = useState([]);
+  
+
+  useEffect(() => {
+    api.get("responsible").then((response) => {
+      setListNamesResponsibles(response.data.responsibles);
     });
+  }, []);
+
+  const onFinish = (values) => {
+    api.delete(`delete-responsable/${values.responsible_ID}`)
+      .then(() => {
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
+      });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -41,24 +48,24 @@ const CreateCompanyForm = () => {
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
           <div className="content-header">
-            <h1>Project Tractian - Nova Empresa</h1>
+            <h1>Project Tractian - Excluir Responsável</h1>
           </div>
       </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item>Início</Breadcrumb.Item>
-          <Breadcrumb.Item>Criar Empresa</Breadcrumb.Item>
+          <Breadcrumb.Item>Excluir Responsável</Breadcrumb.Item>
         </Breadcrumb>
         <div
           className="site-layout-background"
           style={{ padding: 24, minHeight: 360 }}
         >
           <div className="container">
-            <h1>Insira um nome para a empresa:</h1>
+            <h1>Selecione para excluir:</h1>
 
             <Form
               {...layout}
-              name="form_create_companies"
+              name="form_delete_responsible"
               initialValues={{
                 remember: true,
               }}
@@ -66,21 +73,30 @@ const CreateCompanyForm = () => {
               onFinishFailed={onFinishFailed}
             >
               <Form.Item
-                label="Nome"
-                name="name"
+                name="responsible_ID"
+                label="Responsável"
                 rules={[
                   {
                     required: true,
-                    message: "Por favor, insira um nome para a empresa!",
+                    message: "Selecione um responsável para deletar.",
                   },
                 ]}
               >
-                <Input />
-              </Form.Item>
+                <Select placeholder="Selecione um responsável para deletar.">
+                  {listNamesResponsibles.map((val) => {
+                    return (
+                      <Select.Option key={val._id} value={val._id}>
+                        {" "}
+                        {val.name}{" "}
+                      </Select.Option>
+                    );
+                  })}
+                </Select>
+              </Form.Item> 
 
               <Form.Item {...tailLayout}>
                 <Button type="primary" htmlType="submit">
-                  Cadastrar
+                  Deletar
                 </Button>
               </Form.Item>
             </Form>
@@ -94,4 +110,4 @@ const CreateCompanyForm = () => {
   );
 };
 
-export default CreateCompanyForm;
+export default DeleteResponsibleForm;

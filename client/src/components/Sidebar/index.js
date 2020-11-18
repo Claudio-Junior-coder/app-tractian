@@ -46,6 +46,38 @@ export default function Sidebar() {
     history.push('/create-responsible')
   }
 
+  const handleUpdateCompany = () => {
+    history.push('/update-company')
+  }
+
+  const handleUpdateUnity = () => {
+    history.push('/update-unity')
+  }
+
+  const handleUpdateAsset  = () => {
+    history.push('/update-asset')
+  }
+
+  const handleUpdateResponsible  = () => {
+    history.push('/update-responsible')
+  }
+
+  const handleDeleteCompany  = () => {
+    history.push('/delete-company')
+  }
+
+  const handleDeleteUnity  = () => {
+    history.push('/delete-unity')
+  }
+
+  const handleDeleteResponsable = () => {
+    history.push('/delete-responsible')
+  }
+
+  const handleDeleteAsset  = () => {
+    history.push('/delete-asset')
+  }
+
   const handleIndex = () => {
     history.push('/')
   }
@@ -68,6 +100,11 @@ export default function Sidebar() {
   
   function saveCompanyId(id) {
     window.localStorage.setItem('company_id', id)
+
+      setTimeout(() => {
+        window.location.href = '/'
+      }, 1000)
+
   }
   
   
@@ -83,6 +120,7 @@ export default function Sidebar() {
       }}
     >
       <Form.Item className="select-main">
+        <h4 style={{color: "white", textAlign: "center" }}>Empresa Atual</h4>
       {persistedCompanyId && <Select  defaultValue={persistedCompanyId} onChange={saveCompanyId}>
         {listNamesCompany.map((val) => {
           return (
@@ -102,26 +140,24 @@ export default function Sidebar() {
           Visão Geral
         </Menu.Item>
         <SubMenu key="sub1" icon={<BookOutlined />} title="Empresas">
-          <Menu.Item key="1" onClick={handleCreateCompany}>
-            Adicionar
-          </Menu.Item>
-          <Menu.Item key="2">Editar</Menu.Item>
-          <Menu.Item key="3">Excluir</Menu.Item>
+          <Menu.Item key="1" onClick={handleCreateCompany}> Adicionar </Menu.Item>
+          <Menu.Item key="2" onClick={handleUpdateCompany}>Editar</Menu.Item>
+          <Menu.Item key="3" onClick={handleDeleteCompany}>Excluir</Menu.Item>
         </SubMenu>
         <SubMenu key="sub2" icon={<HomeOutlined />} title="Unidades">
           <Menu.Item key="4" onClick={handleCreateUnity}>Adicionar</Menu.Item>
-          <Menu.Item key="5">Editar</Menu.Item>
-          <Menu.Item key="6">Excluir</Menu.Item>
+          <Menu.Item key="5" onClick={handleUpdateUnity}>Editar</Menu.Item>
+          <Menu.Item key="6" onClick={handleDeleteUnity}>Excluir</Menu.Item>
         </SubMenu>
         <SubMenu key="sub3" icon={<ProfileOutlined />} title="Ativos">
           <Menu.Item key="7" onClick={handleCreateAsset}>Adicionar</Menu.Item>
-          <Menu.Item key="8">Editar</Menu.Item>
-          <Menu.Item key="9">Excluir</Menu.Item>
+          <Menu.Item key="8" onClick={handleUpdateAsset}>Editar</Menu.Item>
+          <Menu.Item key="9" onClick={handleDeleteAsset}>Excluir</Menu.Item>
         </SubMenu>
         <SubMenu key="sub4" icon={<UserAddOutlined />} title="Responsáveis">
           <Menu.Item key="10" onClick={handleCreateResponsible}>Adicionar</Menu.Item>
-          <Menu.Item key="11">Editar</Menu.Item>
-          <Menu.Item key="12">Excluir</Menu.Item>
+          <Menu.Item key="11" onClick={handleUpdateResponsible}>Editar</Menu.Item>
+          <Menu.Item key="12" onClick={handleDeleteResponsable}>Excluir</Menu.Item>
         </SubMenu>
       </Menu>
     </Sider>

@@ -1,11 +1,17 @@
 .container {
     display: flex;
     flex-direction: column;
-    align-items: left;
-    width: 40vw;
-    margin: 20px;
+    margin: 5px;
+    width: auto;
+    justify-items: center;
+    align-items: center;
 }
 
-.container h1 {
-    text-align: center;
+
+
+
+.container h1,
+.container p {
+   margin-bottom: 30px;
+   text-align: center;
 }

@@ -6,7 +6,7 @@ const UnitiesSchema = new mongoose.Schema({
     required: true
   },
   data: {
-    countAssets: {type: Number, required: true},
+    countAssets: {type: Number, required: true, default: 0},
     assetsData: [
       {
         type: mongoose.Schema.Types.ObjectId,

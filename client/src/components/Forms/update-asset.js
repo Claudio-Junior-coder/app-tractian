@@ -29,20 +29,26 @@ const tailLayout = {
   },
 };
 
-const CreateAssetForm = () => {
+const UpdateAssetForm = () => {
   const [listNamesUnities, setListNamesUnity] = useState([]);
+  const [listNamesAssets, setListNamesAssets] = useState([]);
+
 
   useEffect(() => {
     api.get("unity").then((response) => {
       setListNamesUnity(response.data.unities);
     });
+    api.get("asset").then((response) => {
+      setListNamesAssets(response.data.assets);
+    });
   }, []);
 
+
   const onFinish = (values) => {
-    console.log(values);
     api
-      .post("assets", {
+      .put("update-asset", {
         token: window.localStorage.getItem("company_id"),
+        _id: values.asset_ID,
         unity: values.unity_ID,
         image: values.image,
         name: values.name,
@@ -66,30 +72,53 @@ const CreateAssetForm = () => {
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
           <div className="content-header">
-            <h1>Project Tractian - Novo Ativo</h1>
+            <h1>Project Tractian - Editar Ativo</h1>
           </div>
       </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item>Início</Breadcrumb.Item>
-          <Breadcrumb.Item>Criar Ativo</Breadcrumb.Item>
+          <Breadcrumb.Item>Editar Ativo</Breadcrumb.Item>
         </Breadcrumb>
         <div
           className="site-layout-background"
           style={{ padding: 24, minHeight: 360 }}
         >
           <div className="container">
-            <h1>Preencha os campos abaixo:</h1>
+            <h1>Informe os campos abaixo:</h1>
 
             <Form
               {...layout}
-              name="form_create_assets"
+              name="form_update_assets"
               initialValues={{
                 remember: true,
               }}
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
             >
+              <Form.Item
+                name="asset_ID"
+                label="Ativo"
+                rules={[
+                  {
+                    required: true,
+                    message: "Selecione um ativo para editar.",
+                  },
+                ]}
+              >
+                <Select placeholder="Selecione um ativo para editar.">
+                  {listNamesAssets.map((val) => {
+                       
+                    return (
+                      <Select.Option key={val._id} value={val._id}>
+                        {" "}
+                        {val.name}{" "}
+                      </Select.Option>
+                    );
+                  })}
+                </Select>
+              </Form.Item>
+
               <Form.Item
                 name="unity_ID"
                 label="Unidade"
@@ -187,7 +216,7 @@ const CreateAssetForm = () => {
 
               <Form.Item {...tailLayout}>
                 <Button type="primary" htmlType="submit">
-                  Cadastrar
+                  Atualizar
                 </Button>
               </Form.Item>
             </Form>
@@ -201,4 +230,4 @@ const CreateAssetForm = () => {
   );
 };
 
-export default CreateAssetForm;
+export default UpdateAssetForm;

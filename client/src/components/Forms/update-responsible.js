@@ -20,19 +20,23 @@ const tailLayout = {
   },
 };
 
-const CreateResponsibleForm = () => {
+const UpdateResponsibleForm = () => {
   const [listNamesAssets, setListNamesAssets] = useState([]);
+  const [listNamesResponsibles, setListNamesResponsibles] = useState([]);
 
   useEffect(() => {
     api.get("asset").then((response) => {
       setListNamesAssets(response.data.assets);
     });
+    api.get("responsible").then((response) => {
+      setListNamesResponsibles(response.data.responsibles);
+    });
   }, []);
 
   const onFinish = (values) => {
-    console.log("Success:", values);
-    api
-      .post("responsible", {
+
+    api.put("update-responsible", {
+        _id: values.responsibleUser,
         name: values.name,
         responsibleAssets: values.responsibleAssets,
       })
@@ -51,13 +55,13 @@ const CreateResponsibleForm = () => {
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
           <div className="content-header">
-            <h1>Project Tractian - Criar Responsável</h1>
+            <h1>Project Tractian - Editar Responsável</h1>
           </div>
       </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item>Início</Breadcrumb.Item>
-          <Breadcrumb.Item>Criar Responsável</Breadcrumb.Item>
+          <Breadcrumb.Item>Editar Responsável</Breadcrumb.Item>
         </Breadcrumb>
         <div
           className="site-layout-background"
@@ -68,13 +72,37 @@ const CreateResponsibleForm = () => {
 
             <Form
               {...layout}
-              name="form_create_responsibles"
+              name="form_update_responsibles"
               initialValues={{
                 remember: true,
               }}
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
             >
+               <Form.Item
+                name="responsibleUser"
+                label="Responsável"
+                rules={[
+                  {
+                    required: true,
+                    message: "Selecione o responsável para editar.",
+                  },
+                ]}
+              >
+                <Select
+                  placeholder="Selecione o responsável para editar."
+                >
+                  {listNamesResponsibles.map((val) => {
+                    return (
+                      <Select.Option key={val._id} value={val._id}>
+                        {" "}
+                        {val.name}{" "}
+                      </Select.Option>
+                    );
+                  })}
+                </Select>
+              </Form.Item>
+
               <Form.Item
                 label="Nome"
                 name="name"
@@ -115,7 +143,7 @@ const CreateResponsibleForm = () => {
 
               <Form.Item {...tailLayout}>
                 <Button type="primary" htmlType="submit">
-                  Cadastrar
+                  Atualizar
                 </Button>
               </Form.Item>
             </Form>
@@ -129,4 +157,4 @@ const CreateResponsibleForm = () => {
   );
 };
 
-export default CreateResponsibleForm;
+export default UpdateResponsibleForm;
