@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express') 
 const mongoose = require('mongoose')
 const cors = require('cors')
@@ -8,11 +9,10 @@ const Assets = require('./models/Assets')
 const Unities = require('./models/Unities')
 const Responsible = require('./models/Responsible')
 
-
 app.use(express.json())
 app.use(cors())
 
-mongoose.connect('mongodb+srv://user:passbase@crud.lo4nw.mongodb.net/company?retryWrites=true&w=majority', {
+mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@crud.lo4nw.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
      useUnifiedTopology: true 
 })
@@ -256,6 +256,6 @@ app
 })
 
 
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3001, () => {
     console.log('Server running on ports 3001...')
 })
