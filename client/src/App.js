@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Layout, Breadcrumb, Collapse, Progress } from "antd";
 import api from "./service/api";
+import axios from 'axios'
 
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -11,8 +12,8 @@ import "antd/dist/antd.css";
 const { Header, Content, Footer } = Layout;
 const { Panel } = Collapse;
 
-
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true)
   const [options,  setOptions] = useState({
     title: {
       text: "Visão Geral dos Ativos",
@@ -51,6 +52,12 @@ export default function App() {
 
   const companyId = window.localStorage.getItem("company_id");
   const companyName = window.localStorage.getItem("company_name");
+
+  useEffect(() => {
+    axios.get('https://project-tractian.herokuapp.com').then(({data}) => {
+      setIsLoading(data.status === 'alive' ? false : true)
+    })
+  }, [])
 
   useEffect(() => {
     api.get("companies").then((response) => {
@@ -118,7 +125,7 @@ export default function App() {
 
   }, [companyId]);
 
-  return (
+  return isLoading ? <h1 style={{ color: 'gray'}}>Carregando...</h1> : (
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
         <div className="content-header">
@@ -233,5 +240,5 @@ export default function App() {
         Project Tractian ©2020 Created by Claudio Pimentel
       </Footer>
     </Layout>
-  );
+            );
 }
