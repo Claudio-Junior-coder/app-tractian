@@ -1,2 +1,2 @@
-# Projeto Tractian (Em desenvolvimento)
-Estou desenvolvendo esse projeto durante o processo seletivo da empresa Tractian
+# Projeto Tractian (Finalizada)
+Desenvolvi esse projeto durante o processo seletivo da empresa Tractian
