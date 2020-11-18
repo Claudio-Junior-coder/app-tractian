@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Layout, Menu } from 'antd'
-import Axios from "axios";
+import api from "../../service/api";
 import { Select, Form } from "antd";
 import { PieChartOutlined,
   BookOutlined,
@@ -87,7 +87,7 @@ export default function Sidebar() {
   const [persistedCompanyId, setPersistedCompanyId] = useState('')
   
   useEffect(() => {
-    Axios.get("http://localhost:3001/companies").then((response) => {
+    api.get("companies").then((response) => {
       persistCompanyId();
       setListNamesCompany(response.data.companies);
     });
