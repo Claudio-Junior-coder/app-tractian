@@ -60,6 +60,8 @@ export default function App() {
   }, [])
 
   useEffect(() => {
+    if (!companyId) return
+
     api.get("companies").then((response) => {
       const companyName = response.data.companies.find(
         (company) => company._id === companyId
