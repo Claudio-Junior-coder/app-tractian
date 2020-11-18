@@ -33,7 +33,7 @@ const CreateUnityForm = () => {
       })
       .then(() => {
         setTimeout(() => {
-          window.location.href = "/";
+          window.location.href = "/create-asset";
         }, 1000);
       });
   };
@@ -45,9 +45,9 @@ const CreateUnityForm = () => {
   return (
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
-          <div className="content-header">
-            <h1>Project Tractian - Nova Unidade</h1>
-          </div>
+        <div className="content-header">
+          <h1>Project Tractian - Nova Unidade</h1>
+        </div>
       </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>

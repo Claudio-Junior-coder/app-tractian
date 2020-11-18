@@ -53,7 +53,7 @@ const CreateAssetForm = () => {
       })
       .then(() => {
         setTimeout(() => {
-          window.location.href = "/";
+          window.location.href = "/create-responsible";
         }, 1000);
       });
   };
@@ -65,9 +65,9 @@ const CreateAssetForm = () => {
   return (
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
-          <div className="content-header">
-            <h1>Project Tractian - Novo Ativo</h1>
-          </div>
+        <div className="content-header">
+          <h1>Project Tractian - Novo Ativo</h1>
+        </div>
       </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>

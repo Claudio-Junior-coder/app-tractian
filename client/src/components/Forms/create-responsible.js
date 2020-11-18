@@ -50,9 +50,9 @@ const CreateResponsibleForm = () => {
   return (
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
-          <div className="content-header">
-            <h1>Project Tractian - Criar Responsável</h1>
-          </div>
+        <div className="content-header">
+          <h1>Project Tractian - Criar Responsável</h1>
+        </div>
       </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>

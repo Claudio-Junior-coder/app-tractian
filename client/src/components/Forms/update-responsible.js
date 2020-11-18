@@ -34,8 +34,8 @@ const UpdateResponsibleForm = () => {
   }, []);
 
   const onFinish = (values) => {
-
-    api.put("update-responsible", {
+    api
+      .put("update-responsible", {
         _id: values.responsibleUser,
         name: values.name,
         responsibleAssets: values.responsibleAssets,
@@ -54,9 +54,9 @@ const UpdateResponsibleForm = () => {
   return (
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
-          <div className="content-header">
-            <h1>Project Tractian - Editar Responsável</h1>
-          </div>
+        <div className="content-header">
+          <h1>Project Tractian - Editar Responsável</h1>
+        </div>
       </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
@@ -79,7 +79,7 @@ const UpdateResponsibleForm = () => {
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
             >
-               <Form.Item
+              <Form.Item
                 name="responsibleUser"
                 label="Responsável"
                 rules={[
@@ -89,9 +89,7 @@ const UpdateResponsibleForm = () => {
                   },
                 ]}
               >
-                <Select
-                  placeholder="Selecione o responsável para editar."
-                >
+                <Select placeholder="Selecione o responsável para editar.">
                   {listNamesResponsibles.map((val) => {
                     return (
                       <Select.Option key={val._id} value={val._id}>

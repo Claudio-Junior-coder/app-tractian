@@ -5,7 +5,6 @@ import "../../styles/forms.css";
 
 const { Header, Content, Footer } = Layout;
 
-
 const layout = {
   labelCol: {
     span: 8,
@@ -23,19 +22,15 @@ const tailLayout = {
 
 const UpdateCompanyForm = () => {
   const onFinish = (values) => {
-
-    const id = window.localStorage.getItem('company_id');
+    const id = window.localStorage.getItem("company_id");
 
     api.put("update-company", { name: values, _id: id }).then(({ data }) => {
-
       window.localStorage.setItem("company_id", data._id);
       console.log("Success:", data);
 
-
-      setTimeout(() => {      
+      setTimeout(() => {
         window.location.href = "/";
       }, 1000);
-
     });
   };
 
@@ -46,9 +41,9 @@ const UpdateCompanyForm = () => {
   return (
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
-          <div className="content-header">
-            <h1>Project Tractian - Editar Empresa</h1>
-          </div>
+        <div className="content-header">
+          <h1>Project Tractian - Editar Empresa</h1>
+        </div>
       </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
@@ -61,7 +56,10 @@ const UpdateCompanyForm = () => {
         >
           <div className="container">
             <h1>Atualize o campo abaixo:</h1>
-            <p>Obs: Você está editando a empresa selecionada no menu ao lado esquerdo.</p>
+            <p>
+              Obs: Você está editando a empresa selecionada no menu ao lado
+              esquerdo.
+            </p>
             <Form
               {...layout}
               name="form_update_companies"

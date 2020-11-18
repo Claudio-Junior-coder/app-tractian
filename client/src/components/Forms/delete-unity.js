@@ -21,9 +21,7 @@ const tailLayout = {
 };
 
 const DeleteUnityForm = () => {
-
   const [listNamesUnities, setListNamesUnities] = useState([]);
-  
 
   useEffect(() => {
     api.get("unity").then((response) => {
@@ -32,12 +30,11 @@ const DeleteUnityForm = () => {
   }, []);
 
   const onFinish = (values) => {
-    api.delete(`delete-unity/${values.unity_ID}`)
-      .then(() => {
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 1000);
-      });
+    api.delete(`delete-unity/${values.unity_ID}`).then(() => {
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
+    });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -47,9 +44,9 @@ const DeleteUnityForm = () => {
   return (
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
-          <div className="content-header">
-            <h1>Project Tractian - Excluir Unidade</h1>
-          </div>
+        <div className="content-header">
+          <h1>Project Tractian - Excluir Unidade</h1>
+        </div>
       </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
@@ -92,7 +89,7 @@ const DeleteUnityForm = () => {
                     );
                   })}
                 </Select>
-              </Form.Item> 
+              </Form.Item>
 
               <Form.Item {...tailLayout}>
                 <Button type="primary" htmlType="submit">

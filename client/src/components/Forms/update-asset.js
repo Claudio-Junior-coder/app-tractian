@@ -33,7 +33,6 @@ const UpdateAssetForm = () => {
   const [listNamesUnities, setListNamesUnity] = useState([]);
   const [listNamesAssets, setListNamesAssets] = useState([]);
 
-
   useEffect(() => {
     api.get("unity").then((response) => {
       setListNamesUnity(response.data.unities);
@@ -42,7 +41,6 @@ const UpdateAssetForm = () => {
       setListNamesAssets(response.data.assets);
     });
   }, []);
-
 
   const onFinish = (values) => {
     api
@@ -71,9 +69,9 @@ const UpdateAssetForm = () => {
   return (
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
-          <div className="content-header">
-            <h1>Project Tractian - Editar Ativo</h1>
-          </div>
+        <div className="content-header">
+          <h1>Project Tractian - Editar Ativo</h1>
+        </div>
       </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
@@ -108,7 +106,6 @@ const UpdateAssetForm = () => {
               >
                 <Select placeholder="Selecione um ativo para editar.">
                   {listNamesAssets.map((val) => {
-                       
                     return (
                       <Select.Option key={val._id} value={val._id}>
                         {" "}

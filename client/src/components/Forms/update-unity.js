@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import api from "../../service/api";
 import { Form, Input, Button, Layout, Breadcrumb, Select } from "antd";
 import "../../styles/forms.css";
@@ -21,7 +21,6 @@ const tailLayout = {
 };
 
 const UpdateUnityForm = () => {
-
   const [listNamesUnities, setListNamesUnity] = useState([]);
 
   useEffect(() => {
@@ -31,7 +30,8 @@ const UpdateUnityForm = () => {
   }, []);
 
   const onFinish = (values) => {
-    api.put("update-unities", {
+    api
+      .put("update-unities", {
         name: values.name,
         _id: values.unity_ID,
       })
@@ -49,9 +49,9 @@ const UpdateUnityForm = () => {
   return (
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
-          <div className="content-header">
-            <h1>Project Tractian - Editar Unidade</h1>
-          </div>
+        <div className="content-header">
+          <h1>Project Tractian - Editar Unidade</h1>
+        </div>
       </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
@@ -86,7 +86,6 @@ const UpdateUnityForm = () => {
               >
                 <Select placeholder="Selecione uma unidade para editar.">
                   {listNamesUnities.map((val) => {
-                       
                     return (
                       <Select.Option key={val._id} value={val._id}>
                         {" "}

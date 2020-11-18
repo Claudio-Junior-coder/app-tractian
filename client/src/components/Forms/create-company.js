@@ -5,7 +5,6 @@ import "../../styles/forms.css";
 
 const { Header, Content, Footer } = Layout;
 
-
 const layout = {
   labelCol: {
     span: 8,
@@ -28,7 +27,7 @@ const CreateCompanyForm = () => {
       window.localStorage.setItem("company_id", data.company._id);
 
       setTimeout(() => {
-        window.location.href = "/";
+        window.location.href = "/create-unity";
       }, 1000);
     });
   };
@@ -40,9 +39,9 @@ const CreateCompanyForm = () => {
   return (
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
-          <div className="content-header">
-            <h1>Project Tractian - Nova Empresa</h1>
-          </div>
+        <div className="content-header">
+          <h1>Project Tractian - Nova Empresa</h1>
+        </div>
       </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>

@@ -21,9 +21,7 @@ const tailLayout = {
 };
 
 const DeleteResponsibleForm = () => {
-
   const [listNamesResponsibles, setListNamesResponsibles] = useState([]);
-  
 
   useEffect(() => {
     api.get("responsible").then((response) => {
@@ -32,12 +30,11 @@ const DeleteResponsibleForm = () => {
   }, []);
 
   const onFinish = (values) => {
-    api.delete(`delete-responsable/${values.responsible_ID}`)
-      .then(() => {
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 1000);
-      });
+    api.delete(`delete-responsable/${values.responsible_ID}`).then(() => {
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
+    });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -47,9 +44,9 @@ const DeleteResponsibleForm = () => {
   return (
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
-          <div className="content-header">
-            <h1>Project Tractian - Excluir Responsável</h1>
-          </div>
+        <div className="content-header">
+          <h1>Project Tractian - Excluir Responsável</h1>
+        </div>
       </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
@@ -92,7 +89,7 @@ const DeleteResponsibleForm = () => {
                     );
                   })}
                 </Select>
-              </Form.Item> 
+              </Form.Item>
 
               <Form.Item {...tailLayout}>
                 <Button type="primary" htmlType="submit">

@@ -1,10 +1,9 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import api from "../../service/api";
 import { Form, Button, Layout, Breadcrumb, Select } from "antd";
 import "../../styles/forms.css";
 
 const { Header, Content, Footer } = Layout;
-
 
 const layout = {
   labelCol: {
@@ -22,7 +21,6 @@ const tailLayout = {
 };
 
 const DeleteCompanyForm = () => {
-
   const [listNamesCompanies, setListNamesCompanies] = useState([]);
   useEffect(() => {
     api.get("companies").then((response) => {
@@ -30,12 +28,10 @@ const DeleteCompanyForm = () => {
     });
   }, []);
 
-
   const onFinish = (values) => {
     console.log("Success:", values);
     api.delete(`delete-company/${values.company_ID}`).then(() => {
-      /* window.localStorage.removeItem("company_id", data.company._id); */
-
+      window.localStorage.clear();
       setTimeout(() => {
         window.location.href = "/";
       }, 1000);
@@ -49,9 +45,9 @@ const DeleteCompanyForm = () => {
   return (
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }}>
-          <div className="content-header">
-            <h1>Project Tractian - Excluir Empresa </h1>
-          </div>
+        <div className="content-header">
+          <h1>Project Tractian - Excluir Empresa </h1>
+        </div>
       </Header>
       <Content style={{ margin: "0 16px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
@@ -94,7 +90,7 @@ const DeleteCompanyForm = () => {
                     );
                   })}
                 </Select>
-              </Form.Item> 
+              </Form.Item>
 
               <Form.Item {...tailLayout}>
                 <Button type="primary" htmlType="submit">
